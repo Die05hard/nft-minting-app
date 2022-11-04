@@ -3,7 +3,7 @@
   "SCAN_LINK": "https://testnet.bscscan.com/token/0xF339F3097B1F5651060d6201348f830D66f04A26",
   "NETWORK": {
     "NAME": "BNB TEST NET",
-    "SYMBOL": "BNB",
+    "SYMBOL": "MYTOKEN",
     "ID": 97
   },
   "NFT_NAME": "MyToken",
