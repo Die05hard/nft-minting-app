@@ -102,7 +102,7 @@ function App() {
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
-    CONTRACT_ADDRESS: "",
+    CONTRACT_ADDRESS: "0x83B757AfEe0140B8Db643A73755425D7C1529975",
     SCAN_LINK: "",
     NETWORK: {
       NAME: "",
