@@ -121,7 +121,7 @@ function App() {
   });
 
   const discoverMyToken = () => {
-    let cost = CONFIG.WEI_COST;
+    let cost = 0;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost);
     let totalGasLimit = String(gasLimit);
