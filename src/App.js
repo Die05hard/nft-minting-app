@@ -120,7 +120,7 @@ function App() {
     SHOW_BACKGROUND: false,
   });
 
-  const claimNFTs = () => {
+  const discoverMyToken = () => {
     let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost * mintAmount);
@@ -130,7 +130,7 @@ function App() {
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-      .mint(blockchain.account, mintAmount)
+      .discovermytokent(blockchain.account, mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -151,6 +151,34 @@ function App() {
         dispatch(fetchData(blockchain.account));
       });
   };
+  
+   const approveMint = () => {
+    let cost = CONFIG.WEI_COST;
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalCostWei = String(cost * mintAmount);
+    let totalGasLimit = String(gasLimit * mintAmount);
+    console.log("Cost: ", totalCostWei);
+    console.log("Gas limit: ", totalGasLimit);
+    // setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+    // setClaimingNft(true);
+    blockchain.smartContract.methods
+      .approve(blockchain.account, mintAmount)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedback("Sorry, something went wrong please try again later.");
+        // setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+       
+      });
+  };
+  
 
   const decrementMintAmount = () => {
     let newMintAmount = mintAmount - 1;
@@ -380,11 +408,20 @@ function App() {
                     </s.Container>
                     <s.SpacerSmall />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                       <StyledButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          approveMInt();
+                        }}
+                      >
+                        {"APPROVE"}
+                      </StyledButton>
                       <StyledButton
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
-                          claimNFTs();
+                          discoverMyToken();
                           getData();
                         }}
                       >
