@@ -121,7 +121,7 @@ function App() {
     SHOW_BACKGROUND: false,
   });
 
-  const discoverMyToken = () => {
+  const discoverGEMS = () => {
     let cost = 0;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost * mintAmount);
@@ -132,7 +132,7 @@ function App() {
     setClaimingNft(true);
     console.log(mintAmount);
     blockchain.smartContract.methods
-      .discovermytoken(mintAmount)
+      .discoverGEMS(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -423,7 +423,7 @@ function App() {
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
-                          discoverMyToken();
+                          discoverGEMS();
                           getData();
                         }}
                       >
