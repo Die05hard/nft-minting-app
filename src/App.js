@@ -163,8 +163,8 @@ function App() {
     console.log("Gas limit: ", totalGasLimit);
     // setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     // setClaimingNft(true);
-    blockchain.smartContract.methods
-      .approve(blockchain.account, mintAmount)
+    blockchain.RedeemSmartContract.methods
+      .approve('0x9c300AE45316b6495E7378fCA27eB6801f529637', '10000000000000000')
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
