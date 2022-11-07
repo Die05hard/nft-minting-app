@@ -1,18 +1,19 @@
 {
-  "CONTRACT_ADDRESS": "0xF339F3097B1F5651060d6201348f830D66f04A26",
-  "SCAN_LINK": "https://testnet.bscscan.com/token/0xF339F3097B1F5651060d6201348f830D66f04A26",
+  "CONTRACT_ADDRESS": "0x9c300AE45316b6495E7378fCA27eB6801f529637",
+  "SCAN_LINK": "https://etherscan.io/address/0x9c300AE45316b6495E7378fCA27eB6801f529637",
   "NETWORK": {
     "NAME": "ETH",
     "SYMBOL": "$REDEEM",
-    "ID": 97
+    "ID": 1
   },
   "NFT_NAME": "REDEEM GEM",
   "SYMBOL": "GEM",
-  "MAX_SUPPLY": 100,
+  "MAX_SUPPLY": 1111,
   "WEI_COST": 3000000000000000000000,
   "DISPLAY_COST": 3000,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io",
+  "ROADMAP_LINK": "https://reedeems-organization.gitbook.io/redeem-protocol-whitepaper/upcoming-utilities",
   "SHOW_BACKGROUND": true
 }
