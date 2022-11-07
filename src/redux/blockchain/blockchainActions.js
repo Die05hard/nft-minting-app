@@ -40,7 +40,14 @@ export const connect = () => {
         Accept: "application/json",
       },
     });
+    const RedeemabiResponse = await fetch("/config/Redeemabi.json", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
     const abi = await abiResponse.json();
+    const Redeemabi = await RedeemabiResponse.json();
     const configResponse = await fetch("/config/config.json", {
       headers: {
         "Content-Type": "application/json",
@@ -61,14 +68,20 @@ export const connect = () => {
           method: "net_version",
         });
         if (networkId == CONFIG.NETWORK.ID) {
+        
           const SmartContractObj = new Web3EthContract(
             abi,
             CONFIG.CONTRACT_ADDRESS
+          );
+          const RedeemSmartContractObj = new Web3EthContract(
+            Redeemabi,
+            '0xAD834328010beC4c20990055297AC15d5ABb405F'
           );
           dispatch(
             connectSuccess({
               account: accounts[0],
               smartContract: SmartContractObj,
+              RedeemSmartContract: RedeemSmartContractObj,
               web3: web3,
             })
           );
