@@ -117,20 +117,22 @@ function App() {
     GAS_LIMIT: 0,
     MARKETPLACE: "",
     MARKETPLACE_LINK: "",
+    ROADMAP_LINK: "",
     SHOW_BACKGROUND: false,
   });
 
   const discoverMyToken = () => {
     let cost = 0;
     let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost);
-    let totalGasLimit = String(gasLimit);
+    let totalCostWei = String(cost * mintAmount);
+    let totalGasLimit = String(gasLimit * mintAmount);
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
+    console.log(mintAmount);
     blockchain.smartContract.methods
-      .discovermytoken(1)
+      .discovermytoken(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -245,7 +247,7 @@ function App() {
             style={{
               backgroundColor: "var(--accent)",
               padding: 24,
-              borderRadius: 24,
+              borderRadius: 30,
               border: "4px dashed var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
@@ -277,7 +279,7 @@ function App() {
             >
               <StyledButton
                 onClick={(e) => {
-                  window.open("/config/roadmap.pdf", "_blank");
+                  window.open(CONFIG.ROADMAP_LINK, "_blank");
                 }}
                 style={{
                   margin: "5px",
@@ -444,7 +446,7 @@ function App() {
           </s.Container>
         </ResponsiveWrapper>
         <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+        <s.Container jc={"center"} ai={"center"} style={{ width: "30%" }}>
           <s.TextDescription
             style={{
               textAlign: "center",
