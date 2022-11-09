@@ -11,9 +11,9 @@
   "MAX_SUPPLY": 1111,
   "WEI_COST": 3000000000000000000000,
   "DISPLAY_COST": 3000,
-  "GAS_LIMIT": 985000,
+  "GAS_LIMIT": 250000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io",
-  "ROADMAP_LINK": "https://reedeems-organization.gitbook.io/redeem-protocol-whitepaper/upcoming-utilities",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/redeem-gems",
+  "REDEEM_BUY_LINK": "https://app.uniswap.org/#/swap?outputCurrency=0xad834328010bec4c20990055297ac15d5abb405f",
   "SHOW_BACKGROUND": true
 }
