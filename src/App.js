@@ -117,7 +117,7 @@ function App() {
     GAS_LIMIT: 0,
     MARKETPLACE: "",
     MARKETPLACE_LINK: "",
-    ROADMAP_LINK: "",
+    REDEEMBUY_LINK: "",
     SHOW_BACKGROUND: false,
   });
 
@@ -125,7 +125,7 @@ function App() {
     let cost = 0;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost * mintAmount);
-    let totalGasLimit = String(gasLimit * mintAmount);
+    let totalGasLimit = String(gasLimit * 2);
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
@@ -279,13 +279,13 @@ function App() {
             >
               <StyledButton
                 onClick={(e) => {
-                  window.open(CONFIG.ROADMAP_LINK, "_blank");
+                  window.open(CONFIG.REDEEM_BUY_LINK, "_blank");
                 }}
                 style={{
                   margin: "5px",
                 }}
               >
-                Roadmap
+                BUY $REDEEM
               </StyledButton>
               <StyledButton
                 style={{
@@ -295,7 +295,7 @@ function App() {
                   window.open(CONFIG.MARKETPLACE_LINK, "_blank");
                 }}
               >
-                {CONFIG.MARKETPLACE}
+               GEMS Opensea
               </StyledButton>
             </span>
             <s.SpacerSmall />
