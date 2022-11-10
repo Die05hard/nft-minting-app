@@ -4,6 +4,8 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
+import Moralis from "moralis";
+import { EvmChain } from "@moralisweb3/evm-utils";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -94,7 +96,9 @@ export const StyledLink = styled.a`
   text-decoration: none;
 `;
 
+
 function App() {
+  let [redeemNfts, setRedeemNfts] = useState([]);
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
@@ -120,6 +124,34 @@ function App() {
     REDEEMBUY_LINK: "",
     SHOW_BACKGROUND: false,
   });
+
+  const getNftImages = async () => {
+    await Moralis.start({
+      apiKey: "l044hEh6wafvqSxFXVWX5FB0v8DWBsCDFgKxc0AgIRz4Lolno03XJyeDswHpNeaY",
+      // ...and any other configuration
+    });
+
+    const address = blockchain.account;
+
+    const chain = EvmChain.ETHEREUM;
+
+    const response = await Moralis.EvmApi.nft.getWalletNFTs({
+      address,
+      chain,
+    }).then((resp) => {
+      let res = resp.result.filter((nfts) => {
+        return nfts["token_address"] == blockchain.CONTRACT_ADDRESS
+      }).map((dat) => {
+        const id = dat._data["tokenId"]
+        return { id: id, src: 'https://redeem.fra1.digitaloceanspaces.com/RedeemGEM/redeemthecurseGEMS/' + id + '.png' }
+      });
+
+
+      setRedeemNfts(res);
+    });
+
+
+  }
 
   const discoverGEMS = () => {
     let cost = 0;
@@ -153,8 +185,8 @@ function App() {
         dispatch(fetchData(blockchain.account));
       });
   };
-  
-   const approveMint = () => {
+
+  const approveMint = () => {
     let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost * mintAmount);
@@ -177,10 +209,10 @@ function App() {
       })
       .then((receipt) => {
         console.log(receipt);
-       
+
       });
   };
-  
+
 
   const decrementMintAmount = () => {
     let newMintAmount = mintAmount - 1;
@@ -295,7 +327,7 @@ function App() {
                   window.open(CONFIG.MARKETPLACE_LINK, "_blank");
                 }}
               >
-               GEMS Opensea
+                GEMS Opensea
               </StyledButton>
             </span>
             <s.SpacerSmall />
@@ -332,7 +364,7 @@ function App() {
                 </s.TextDescription>
                 <s.SpacerSmall />
                 {blockchain.account === "" ||
-                blockchain.smartContract === null ? (
+                  blockchain.smartContract === null ? (
                   <s.Container ai={"center"} jc={"center"}>
                     <s.TextDescription
                       style={{
@@ -410,7 +442,7 @@ function App() {
                     </s.Container>
                     <s.SpacerSmall />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                       <StyledButton
+                      <StyledButton
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
@@ -429,7 +461,32 @@ function App() {
                       >
                         {claimingNft ? "BUSY" : "BUY"}
                       </StyledButton>
+
                     </s.Container>
+                    <s.Container ai={"center"} jc={"center"} fd={"row"} style={{
+                      marginTop: "10px",
+                    }}>
+                      <StyledButton
+
+                        onClick={(e) => {
+                          e.preventDefault();
+                          getNftImages();
+                        }}
+                      >
+                        VIEW MY $GEMS
+                      </StyledButton>
+                    </s.Container>
+                    <div className='text' style={{
+                      marginTop: "10px",
+                    }}>
+                      {redeemNfts?.map((image, i) => (
+                        <img style={{
+                          width: "125px",
+                          height: "125px",
+                          padding: "5px"
+                        }} key={i} src={image.src} alt="" />
+                      ))}
+                    </div>
                   </>
                 )}
               </>
@@ -453,7 +510,7 @@ function App() {
               color: "var(--primary-text)",
             }}
           >
-                      </s.TextDescription>
+          </s.TextDescription>
           <s.SpacerSmall />
           <s.TextDescription
             style={{
